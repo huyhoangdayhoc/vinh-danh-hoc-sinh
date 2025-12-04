@@ -1,140 +1,280 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vinh Danh Học Sinh</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Vinh Danh Học Sinh — Mẫu Mobile</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#06b6d4;
+      --muted:#9ca3af;
+      --glass: rgba(255,255,255,0.04);
+    }
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial; background: linear-gradient(180deg,#071226 0%, #081428 100%);color:#e6eef6}
+    .app{
+      padding:18px 14px 40px;
+      max-width:980px;
+      margin:0 auto;
+    }
+    header{
+      display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:14px;
+    }
+    header h1{font-size:18px;margin:0}
+    header p{margin:0;font-size:13px;color:var(--muted)}
 
-    <!-- Font Google -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+    /* Cards horizontal scroll for mobile */
+    .cards-wrap{
+      display:flex;
+      gap:14px;
+      overflow-x:auto;
+      padding:8px 6px;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+    }
+    /* Hide scrollbar but keep accessible */
+    .cards-wrap::-webkit-scrollbar{height:8px}
+    .cards-wrap::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:999px}
 
-    <style>
-        :root {
-            --main-color: #0055ff;
-            --card-bg: #ffffff;
-            --bg: #0e1324;
-            --text-light: #d7d9e0;
-        }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.06));
+      min-width:260px;
+      max-width:320px;
+      flex:0 0 auto;
+      border-radius:14px;
+      padding:12px;
+      box-sizing:border-box;
+      box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+      border:1px solid rgba(255,255,255,0.04);
+      scroll-snap-align:center;
+    }
+    .card .photo{
+      height:140px;border-radius:10px;overflow:hidden;margin-bottom:10px;background:var(--glass);display:flex;align-items:center;justify-content:center
+    }
+    .card img{width:100%;height:100%;object-fit:cover;display:block}
+    .meta{display:flex;align-items:center;gap:10px}
+    .meta .avatar{width:56px;height:56px;border-radius:10px;overflow:hidden;flex-shrink:0}
+    .meta .info{flex:1}
+    .meta .info h3{margin:0;font-size:15px}
+    .meta .info p{margin:2px 0 0;font-size:12px;color:var(--muted)}
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: var(--bg);
-            color: var(--text-light);
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
+    .badge{margin-top:10px;display:inline-block;padding:6px 8px;border-radius:999px;background:linear-gradient(90deg,var(--accent),#7c3aed);font-weight:600;font-size:12px}
 
-        h1 {
-            margin: 20px 0;
-            font-size: 32px;
-            font-weight: 700;
-            color: #ffffff;
-        }
+    .stats{display:flex;gap:8px;margin-top:12px;font-size:13px}
+    .stats div{flex:1;background:rgba(255,255,255,0.03);padding:8px;border-radius:8px;text-align:center}
 
-        .gallery {
-            width: 90%;
-            margin: auto;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 25px;
-            padding-bottom: 40px;
-        }
+    .cta{display:flex;gap:8px;margin-top:12px}
+    .btn{flex:1;padding:10px;border-radius:10px;border:0;background:var(--accent);color:#022;cursor:pointer;font-weight:600}
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
 
-        .student {
-            width: 220px;
-            background: var(--card-bg);
-            border-radius: 14px;
-            overflow: hidden;
-            transition: transform 0.3s ease;
-            box-shadow: 0px 10px 25px rgba(0,0,0,0.4);
-        }
+    /* Larger layout: show grid of horizontal rows on wider screens */
+    @media(min-width:720px){
+      .cards-wrap{flex-wrap:wrap;overflow:visible}
+      .card{min-width:calc(33% - 18px);max-width:calc(33% - 18px)}
+    }
 
-        .student:hover {
-            transform: translateY(-10px) scale(1.05);
-        }
-
-        img {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-        }
-
-        .info {
-            padding: 12px;
-        }
-
-        .name {
-            font-size: 18px;
-            font-weight: 700;
-            color: #111;
-        }
-
-        .award {
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--main-color);
-            margin-top: 4px;
-        }
-
-        footer {
-            margin-top: 30px;
-            padding: 10px;
-            background: rgba(255,255,255,0.05);
-        }
-    </style>
+    /* Small polish */
+    .note{font-size:12px;color:var(--muted);margin-top:10px}
+  </style>
 </head>
 <body>
+  <div class="app">
+    <header>
+      <div>
+        <h1 style="background:#fff;color:#00B2BF;padding:10px;border-radius:4px;margin-top:20px;">lỚP THẦY HOÀNG CẨM NÊ - TOÁN & KHTN - ZALO: 0787 195 591</h1>
+        <br /><h1>Vinh danh học sinh bài kiểm tra giữa kì 1 năm 25-26. Dưới đây là danh sách các bạn điểm xuất sắc.</h1>
+        <p></p>
+      </div>
+  
+    </header>
 
-    <h1>🌟 VINH DANH HỌC SINH XUẤT SẮC 🌟</h1>
-
-    <div class="gallery">
-
-        <div class="student">
-            <img src="https://via.placeholder.com/220x260" alt="">
-            <div class="info">
-                <div class="name">Nguyễn Văn A</div>
-                <div class="award">Giải Nhất Tin học</div>
-            </div>
+    <section class="cards-wrap" aria-label="Danh sách vinh danh">
+      <!-- Card 1 -->
+      <article class="card" role="article">
+        <div class="photo" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="Hình ảnh học sinh 1">
         </div>
-
-        <div class="student">
-            <img src="https://via.placeholder.com/220x260" alt="">
-            <div class="info">
-                <div class="name">Trần Thị B</div>
-                <div class="award">Thủ khoa Khối A</div>
-            </div>
+        <div class="meta">
+          <div class="avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&s=placeholder" alt="Avatar"></div>
+          <div class="info">
+            <h3>Nguyễn Văn A</h3>
+            <p>Lớp 12A1 — Học sinh xuất sắc</p>
+          </div>
         </div>
-
-        <div class="student">
-            <img src="https://via.placeholder.com/220x260" alt="">
-            <div class="info">
-                <div class="name">Lê Quốc C</div>
-                <div class="award">Xuất sắc toàn diện</div>
-            </div>
+        <div class="badge">Học lực: Giỏi</div>
+        <div class="stats">
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Điểm TB</div>
+            <div style="font-weight:700">9.4</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Chuyên cần</div>
+            <div style="font-weight:700">98%</div>
+          </div>
         </div>
-
-        <div class="student">
-            <img src="https://via.placeholder.com/220x260" alt="">
-            <div class="info">
-                <div class="name">Nguyễn Văn D</div>
-                <div class="award">Giải Nhất Tin học</div>
-            </div>
+        <div class="cta">
+          <button class="btn">Xem chi tiết</button>
+          <button class="btn ghost">Gửi lời khen</button>
         </div>
+      </article>
 
-        <div class="student">
-            <img src="https://via.placeholder.com/220x260" alt="">
-            <div class="info">
-                <div class="name">Nguyễn Văn E</div>
-                <div class="award">Giải Nhất Tin học</div>
-            </div>
+      <!-- Card 2 -->
+      <article class="card" role="article">
+        <div class="photo" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="Hình ảnh học sinh 2">
         </div>
+        <div class="meta">
+          <div class="avatar"><img src="https://images.unsplash.com/photo-1545996124-6b4b0c3a1f6f?q=80&w=400&auto=format&fit=crop&s=placeholder" alt="Avatar"></div>
+          <div class="info">
+            <h3>Trần Thị B</h3>
+            <p>Lớp 11B3 — Nhiệt tình ngoại khóa</p>
+          </div>
+        </div>
+        <div class="badge">Hoạt động: Năng nổ</div>
+        <div class="stats">
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Sự kiện</div>
+            <div style="font-weight:700">5</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Điểm</div>
+            <div style="font-weight:700">8.6</div>
+          </div>
+        </div>
+        <div class="cta">
+          <button class="btn">Xem chi tiết</button>
+          <button class="btn ghost">Gửi lời khen</button>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="card" role="article">
+        <div class="photo" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="Hình ảnh học sinh 3">
+        </div>
+        <div class="meta">
+          <div class="avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&s=placeholder" alt="Avatar"></div>
+          <div class="info">
+            <h3>Phạm Văn C</h3>
+            <p>Lớp 10C2 — Giải nhì học sinh giỏi</p>
+          </div>
+        </div>
+        <div class="badge">Giải thưởng: Nhì</div>
+        <div class="stats">
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Môn</div>
+            <div style="font-weight:700">Toán</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Điểm</div>
+            <div style="font-weight:700">9.0</div>
+          </div>
+        </div>
+        <div class="cta">
+          <button class="btn">Xem chi tiết</button>
+          <button class="btn ghost">Gửi lời khen</button>
+        </div>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="card" role="article">
+        <div class="photo" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="Hình ảnh học sinh 4">
+        </div>
+        <div class="meta">
+          <div class="avatar"><img src="https://images.unsplash.com/photo-1545996124-6b4b0c3a1f6f?q=80&w=400&auto=format&fit=crop&s=placeholder" alt="Avatar"></div>
+          <div class="info">
+            <h3>Ngô Thị D</h3>
+            <p>Lớp 12C4 — Thủ lĩnh đội nhạc</p>
+          </div>
+        </div>
+        <div class="badge">Vai trò: Đội trưởng</div>
+        <div class="stats">
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Sự kiện</div>
+            <div style="font-weight:700">12</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Đóng góp</div>
+            <div style="font-weight:700">Rất lớn</div>
+          </div>
+        </div>
+        <div class="cta">
+          <button class="btn">Xem chi tiết</button>
+          <button class="btn ghost">Gửi lời khen</button>
+        </div>
+      </article>
+
+      <!-- Card 5 -->
+      <article class="card" role="article">
+        <div class="photo" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="Hình ảnh học sinh 5">
+        </div>
+        <div class="meta">
+          <div class="avatar"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=400&auto=format&fit=crop&s=placeholder" alt="Avatar"></div>
+          <div class="info">
+            <h3>Đặng Văn E</h3>
+            <p>Lớp 11A2 — Tiêu biểu văn nghệ</p>
+          </div>
+        </div>
+        <div class="badge">Hoạt động: Văn nghệ</div>
+        <div class="stats">
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Số tiết</div>
+            <div style="font-weight:700">4</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Điểm</div>
+            <div style="font-weight:700">8.8</div>
+          </div>
+        </div>
+        <div class="cta">
+          <button class="btn">Xem chi tiết</button>
+          <button class="btn ghost">Gửi lời khen</button>
+        </div>
+      </article>
+
+      <!-- Card 6 -->
+      <article class="card" role="article">
+        <div class="photo" aria-hidden="true">
+          <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop&s=placeholder" alt="Hình ảnh học sinh 6">
+        </div>
+        <div class="meta">
+          <div class="avatar"><img src="https://images.unsplash.com/photo-1545996124-6b4b0c3a1f6f?q=80&w=400&auto=format&fit=crop&s=placeholder" alt="Avatar"></div>
+          <div class="info">
+            <h3>Lê Thị F</h3>
+            <p>Lớp 10B1 — Khéo tay, sáng tạo</p>
+          </div>
+        </div>
+        <div class="badge">Sáng tạo: Xuất sắc</div>
+        <div class="stats">
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Dự án</div>
+            <div style="font-weight:700">3</div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:var(--muted)">Điểm</div>
+            <div style="font-weight:700">9.1</div>
+          </div>
+        </div>
+        <div class="cta">
+          <button class="btn">Xem chi tiết</button>
+          <button class="btn ghost">Gửi lời khen</button>
+        </div>
+      </article>
+
+    </section>
+    
+    <div style="display:flex;justify-content:center;gap:14px;margin:20px 0;">
+      <a href="https://www.google.com/url?q=https://m.youtube.com/@huyhoangdayhoc" target="_blank" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12);border-radius:8px;color:#fff;"><svg viewBox="0 0 576 512" width="20" height="20" fill="currentColor"><path d="M549.7 124.1c-6.3-23.7-24.9-42.3-48.6-48.6C458.8 64 288 64 288 64s-170.8 0-213.1 11.5c-23.7 6.3-42.3 24.9-48.6 48.6C15 166.4 15 256.1 15 256.1s0 89.7 11.3 132c6.3 23.7 24.9 42.3 48.6 48.6C117.2 448 288 448 288 448s170.8 0 213.1-11.5c23.7-6.3 42.3-24.9 48.6-48.6 11.3-42.3 11.3-132 11.3-132s.1-89.7-11.3-132zM232 338.5v-165l142 82.5-142 82.5z"/></svg></a>
+      <a href="https://www.tiktok.com/@hhhdn9999" target="_blank" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12);border-radius:8px;color:#fff;"><svg viewBox="0 0 448 512" width="20" height="20" fill="currentColor"><path d="M448 209.2c-17.2 7.6-35.7 12.7-55.1 15.1-1.4 0-2.8.1-4.2.1-53 0-96-43-96-96V16h-80v288c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48c5.5 0 10.8.9 15.7 2.6v-82.2c-5.2-.7-10.5-1.1-15.7-1.1-71.7 0-130 58.3-130 130s58.3 130 130 130 130-58.3 130-130V214.1c22.5 16.4 50.3 26.1 80 26.1 1.4 0 2.9 0 4.3-.1v-31z"/></svg></a>
+      </div>
     </div>
-
-    <footer>
-        © Giáo viên: Thầy Hoàng Cẩm Nê — Toán & KHTN lớp 6, 7, 8, 9.
+    <footer style="position:fixed;bottom:0;left:0;width:100%;text-align:center;z-index:999;">
+      <h6 style="background:#fff;color:#00B2BF;padding:10px;margin:0;">
+        LỚP THẦY HOÀNG CẨM NÊ - TOÁN & KHTN - ZALO: 0787 195 591
+      </h6>
     </footer>
-
 </body>
 </html>
