@@ -79,12 +79,26 @@
     .note{font-size:12px;color:var(--muted);margin-top:10px}
   </style>
 </head>
+
+<audio id="bgm" autoplay loop hidden>
+  <source src="https://www.nhaccuatui.com/song/RCWcGY0sUp8Z" type="audio/mpeg">
+</audio>
+
+<script>
+  const audio = document.getElementById("bgm");
+  audio.addEventListener('loadedmetadata', () => {
+    audio.currentTime = 45; // đổi số 45 thành giây thầy muốn
+    audio.play();
+  });
+</script>
+
+
 <body>
   <div class="app">
-    
+
  <header style="display:flex;align-items:center;gap:16px;padding:12px 18px;background:#fff;color:#00B2BF;">
   <div style="width:72px;height:72px;overflow:hidden;border:3px solid #00B2BF;border-radius:8px;">
-    <img src="https://scontent.fdad1-4.fna.fbcdn.net/v/t39.30808-6/501825619_2434667426902606_8547760828302820331_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=KuHd_oS8OtAQ7kNvwGsM-89&_nc_oc=AdnLew6JZz1VNaPHLqnrvYTJxq0lzzBTEYFdL_NXaVIH-A1OEkUHN_V04HCJWCWfNMiZ4PwhAhjAHVU0VNMJeKRg&_nc_zt=23&_nc_ht=scontent.fdad1-4.fna&_nc_gid=DFGlS7H8YLK6KcQxciXRJg&oh=00_AfmBglD8rbVB2Y5ygtpJ4mMLdNZHmOmqFyi5ve_Jd9UwYQ&oe=6939C3A7" alt="Avatar" style="width:100%;height:100%;object-fit:cover;">
+    <img src="https://instagram.fdad1-1.fna.fbcdn.net/v/t51.82787-15/611138825_17842080294674025_1899997075912967700_n.jpg?stp=dst-jpg_e35_tt6&_nc_cat=109&ig_cache_key=MzgwMzgyNDIxNDE3NzQyNjE3OQ%3D%3D.3-ccb7-5&ccb=7-5&_nc_sid=58cdad&efg=eyJ2ZW5jb2RlX3RhZyI6InhwaWRzLjU5NXg3OTMuc2RyLkMzIn0%3D&_nc_ohc=wfKFUekrGlIQ7kNvwFolnRN&_nc_oc=AdmQPAleZzAqsI5d8eBu_Z5wGbmwBD53x1gVvfgBEveARPw9qi3TodWHWwncvS-Rv86EC4qH3Ea06yhZXyqR2ROR&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=instagram.fdad1-1.fna&_nc_gid=ErpfgEeGREJEjUQupqzm2g&oh=00_AfoeB96-j6QpjpjJGfnFIL3qKIshqhJO2n4LKjKMVBWsKw&oe=69623DB6" alt="Avatar" style="width:100%;height:100%;object-fit:cover;">
   </div>
 
   <div>
@@ -93,16 +107,12 @@
   </div>
 </header>
 <h5 style="
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: Lucida Sans Unicode;
   color: #ffffff;
   text-align: center;
-  font-size: 20px;
-  font-weight: 700;
-  margin-top: 20px;
 ">
-  Danh sách các bạn học sinh thi điểm giỏi && xuất sắc vừa rồi
+  Danh sách các bạn học sinh thi điểm giỏi && xuất sắc <br> Năm học : 2025-2026 <br>Giữa Kì I
 </h5>
-
     <section class="cards-wrap" aria-label="Danh sách vinh danh">
       <!-- Card 1 -->
       <article class="card" role="article">
@@ -1978,6 +1988,17 @@
       <a href="https://www.tiktok.com/@hhhdn9999" target="_blank" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.12);border-radius:8px;color:#fff;"><svg viewBox="0 0 448 512" width="20" height="20" fill="currentColor"><path d="M448 209.2c-17.2 7.6-35.7 12.7-55.1 15.1-1.4 0-2.8.1-4.2.1-53 0-96-43-96-96V16h-80v288c0 26.5-21.5 48-48 48s-48-21.5-48-48 21.5-48 48-48c5.5 0 10.8.9 15.7 2.6v-82.2c-5.2-.7-10.5-1.1-15.7-1.1-71.7 0-130 58.3-130 130s58.3 130 130 130 130-58.3 130-130V214.1c22.5 16.4 50.3 26.1 80 26.1 1.4 0 2.9 0 4.3-.1v-31z"/></svg></a>
       </div>
     </div>
+    <div><h5 style="
+        font-family: Lucida Sans Unicode;
+        color: #ffffff;
+        text-align: center;
+      ">
+        “Danh sách này không chỉ là điểm số, mà còn là những kỷ niệm đẹp trên con đường học tập của tuổi học trò.” <br>
+         Nơi Thầy Hoàng cất ảnh học sinh : => <a href="https://huyhoang.pixieset.com/huyhoangdayhoc/" style="color:white; background-color:red;" >Ở ĐÂY NÈ</a> <br>
+      <a href="https://www.instagram.com/huyhoangdayhoc/" style="color:white; background-color:red;" >Ở ĐÂY NỮA</a>
+      </h5>
+    </div>
+    
     <footer style="position:fixed;bottom:0;left:0;width:100%;text-align:center;z-index:999;">
       <h6 style="background:#fff;color:#00B2BF;padding:10px;margin:0;">
         LỚP THẦY HOÀNG CẨM NÊ - TOÁN & KHTN - ZALO: 0787 195 591
